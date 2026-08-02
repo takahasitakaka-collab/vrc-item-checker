@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VRC Item Checker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+<h1>🎮 VRC Item Checker</h1>
+<p>VRChatアバター改変をもっと簡単に。</p>
+</header>
+
+<main>
+<div class="card">
+<h2>商品検索</h2>
+
+<label>アバター</label>
+<select id="avatar">
+<option value="">選択してください</option>
+<option>五味（GOMI）</option>
+<option>桔梗（Kikyo）</option>
+<option>マヌカ（Manuka）</option>
+<option>しなの（Shinano）</option>
+</select>
+
+<label>カテゴリ</label>
+<select id="category">
+<option value="">すべて</option>
+<option>髪</option>
+<option>衣装</option>
+<option>メイク</option>
+<option>ギミック</option>
+</select>
+
+<label>キーワード</label>
+<input id="keyword" placeholder="商品名">
+
+<button onclick="search()">検索</button>
+
+<div id="result"></div>
+</div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

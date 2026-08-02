@@ -1,0 +1,7 @@
+body{font-family:system-ui,sans-serif;background:#eef2ff;margin:0}
+header{background:#22295b;color:#fff;padding:30px}
+.card{max-width:900px;margin:30px auto;background:#fff;padding:20px;border-radius:12px;box-shadow:0 3px 10px rgba(0,0,0,.1)}
+input,select{width:100%;padding:10px;margin:8px 0}
+button{padding:10px 20px;background:#6d5efc;color:#fff;border:none;border-radius:8px;cursor:pointer}
+.item{border:1px solid #ddd;border-radius:10px;padding:12px;margin-top:15px}
+.badge{display:inline-block;background:#ece9ff;color:#4b3fd1;padding:4px 8px;border-radius:999px;margin:2px}

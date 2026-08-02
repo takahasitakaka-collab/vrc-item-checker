@@ -1,0 +1,26 @@
+[
+  {
+    "id":1,
+    "name":"TOGETOGE make",
+    "category":"メイク",
+    "avatars":["五味（GOMI）"],
+    "tools":["Unity 2022","lilToon"],
+    "steps":["Assetsへインポート","Faceへ適用","シェイプキー設定"]
+  },
+  {
+    "id":2,
+    "name":"非対応髪（サンプル）",
+    "category":"髪",
+    "avatars":["五味（GOMI）","桔梗（Kikyo）"],
+    "tools":["Modular Avatar","Unity 2022"],
+    "steps":["Headへ配置","Merge Armature","Build & Test"]
+  },
+  {
+    "id":3,
+    "name":"キス音ギミック",
+    "category":"ギミック",
+    "avatars":["五味（GOMI）","マヌカ（Manuka）"],
+    "tools":["VRChat SDK","Modular Avatar"],
+    "steps":["Prefab配置","Expression設定","Build & Test"]
+  }
+]
