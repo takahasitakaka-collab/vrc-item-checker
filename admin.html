@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VRC Item Checker 管理画面</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f4f4f4;margin:0;padding:30px}
+.container{max-width:1100px;margin:auto;background:#fff;padding:25px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+h1{margin-top:0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{font-weight:bold}
+input,select{width:100%;padding:8px;box-sizing:border-box}
+.buttons{margin-top:15px;display:flex;gap:10px;flex-wrap:wrap}
+button{padding:10px 16px;border:none;border-radius:8px;background:#4f5be6;color:#fff;cursor:pointer}
+button:hover{background:#3743c8}
+table{width:100%;border-collapse:collapse;margin-top:20px}
+th,td{border:1px solid #ccc;padding:8px}
+th{background:#4f5be6;color:#fff}
+.action{display:flex;gap:6px}
+.small{background:#888}
+.delete{background:#d9534f}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>VRC Item Checker 管理画面</h1>
+
+<div class="grid">
+<div><label>商品名</label><input id="name"></div>
+<div><label>作者</label><input id="author"></div>
+<div><label>Booth URL</label><input id="url"></div>
+<div><label>カテゴリ</label>
+<select id="category">
+<option>アバター</option>
+<option>衣装</option>
+<option>アクセサリー</option>
+<option>髪型</option>
+<option>ギミック</option>
+<option>ツール</option>
+</select>
+</div>
+<div><label>価格</label><input id="price" type="number"></div>
+</div>
+
+<div class="buttons">
+<button onclick="saveProduct()">追加 / 更新</button>
+<button onclick="downloadJSON()">JSONを書き出す</button>
+<input type="file" id="importFile" accept=".json" onchange="importJSON(event)">
+</div>
+
+<h2>商品一覧</h2>
+<table>
+<thead>
+<tr>
+<th>商品名</th><th>作者</th><th>カテゴリ</th><th>価格</th><th>操作</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+
+<script>
+let products=JSON.parse(localStorage.getItem("products")||"[]");
+let editIndex=-1;
+
+function render(){
+ const tb=document.getElementById("tbody");
+ tb.innerHTML="";
+ products.forEach((p,i)=>{
+   tb.innerHTML+=`<tr>
+   <td>${p.name}</td>
+   <td>${p.author}</td>
+   <td>${p.category}</td>
+   <td>${p.price}</td>
+   <td class="action">
+   <button class="small" onclick="editProduct(${i})">編集</button>
+   <button class="delete" onclick="deleteProduct(${i})">削除</button>
+   </td></tr>`;
+ });
+ localStorage.setItem("products",JSON.stringify(products,null,2));
+}
+
+function saveProduct(){
+ const p={
+  name:name.value,
+  author:author.value,
+  url:url.value,
+  category:category.value,
+  price:Number(price.value||0)
+ };
+ if(editIndex==-1) products.push(p);
+ else {products[editIndex]=p;editIndex=-1;}
+ document.querySelectorAll("input").forEach(x=>{if(x.type!="file")x.value=""});
+ category.selectedIndex=0;
+ render();
+}
+
+function editProduct(i){
+ const p=products[i];
+ name.value=p.name;
+ author.value=p.author;
+ url.value=p.url;
+ category.value=p.category;
+ price.value=p.price;
+ editIndex=i;
+}
+
+function deleteProduct(i){
+ if(confirm("削除しますか？")){
+   products.splice(i,1);
+   render();
+ }
+}
+
+function downloadJSON(){
+ const blob=new Blob([JSON.stringify(products,null,2)],{type:"application/json"});
+ const a=document.createElement("a");
+ a.href=URL.createObjectURL(blob);
+ a.download="products.json";
+ a.click();
+}
+
+function importJSON(e){
+ const file=e.target.files[0];
+ if(!file) return;
+ const r=new FileReader();
+ r.onload=()=>{
+   products=JSON.parse(r.result);
+   render();
+ };
+ r.readAsText(file);
+}
+
+render();
+</script>
+</body>
+</html>
